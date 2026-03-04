@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bell Interview — Full Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#08090f; --s1:#0e1018; --s2:#141720; --s3:#1c2030;
+  --border:#1f2535; --border2:#2a3348;
+  --blue:#5b9cf6; --blue-d:#0d1e3d; --blue-m:#1a3560;
+  --green:#3dd68c; --green-d:#091f14;
+  --orange:#f5a623; --orange-d:#231508;
+  --purple:#a78bfa; --purple-d:#150f2e;
+  --red:#f06b6b; --red-d:#200d0d;
+  --teal:#2dd4bf; --teal-d:#071918;
+  --yellow:#fbbf24; --yellow-d:#1c1200;
+  --text:#dde4f5; --muted:#5a6a8a; --faint:#2a3348;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Outfit',sans-serif;
+  --r:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.65;overflow-x:hidden;}
+
+/* ── TOPBAR ── */
+#topbar{position:sticky;top:0;z-index:200;background:rgba(8,9,15,.97);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);}
+.topbar-inner{padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.logo{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.02em;}
+.logo span{color:var(--blue);}
+.prog-wrap{display:flex;align-items:center;gap:10px;}
+.prog-bar{width:160px;height:5px;background:var(--border2);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--green);border-radius:99px;transition:width .4s ease;width:0%;}
+.prog-txt{font-size:11px;color:var(--muted);font-family:var(--mono);white-space:nowrap;}
+
+/* ── TAB NAV ── */
+#tabnav{display:flex;gap:3px;padding:0 28px 10px;flex-wrap:wrap;}
+.tab{background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--sans);font-size:11px;font-weight:600;padding:5px 13px;border-radius:5px;cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;}
+.tab:hover{border-color:var(--blue);color:var(--blue);}
+.tab.active{background:var(--blue);border-color:var(--blue);color:#fff;}
+.tab.done-tab{border-color:var(--green);color:var(--green);}
+.tab.done-tab.active{background:var(--green);color:#000;}
+
+/* ── LAYOUT ── */
+.layout{display:grid;grid-template-columns:210px 1fr;}
+
+/* ── SIDEBAR ── */
+#sidebar{border-right:1px solid var(--border);padding:16px 0;position:sticky;top:96px;height:calc(100vh - 96px);overflow-y:auto;}
+.sb-group{margin-bottom:4px;}
+.sb-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);padding:8px 18px 4px;}
+.sb-item{display:flex;align-items:center;gap:8px;padding:6px 18px;cursor:pointer;font-size:12px;color:var(--muted);transition:all .15s;border-left:2px solid transparent;line-height:1.3;}
+.sb-item:hover{color:var(--text);background:var(--s1);}
+.sb-item.active{color:var(--blue);border-left-color:var(--blue);background:var(--s2);}
+.sb-item .pip{width:5px;height:5px;border-radius:50%;background:var(--border2);flex-shrink:0;transition:background .2s;}
+.sb-item.done .pip{background:var(--green);}
+.sb-item.active .pip{background:var(--blue);}
+.sb-badge{margin-left:auto;font-size:9px;padding:1px 5px;border-radius:3px;font-family:var(--mono);font-weight:700;}
+.badge-you{background:var(--green-d);color:var(--green);}
+.badge-gap{background:var(--red-d);color:var(--red);}
+.badge-part{background:var(--orange-d);color:var(--orange);}
+
+/* ── CONTENT ── */
+#content{padding:24px 32px;max-width:900px;}
+.sec{display:none;animation:fadeIn .2s ease;}
+.sec.visible{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── CARD ── */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px;overflow:hidden;transition:border-color .2s;}
+.card.done{border-color:color-mix(in srgb,var(--green) 30%,transparent);}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;user-select:none;gap:12px;}
+.card-head:hover{background:var(--s2);}
+.card-title{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;color:var(--text);}
+.card-icon{font-size:15px;}
+.card-meta{display:flex;align-items:center;gap:8px;}
+.diff{font-size:9px;font-family:var(--mono);padding:2px 7px;border-radius:3px;font-weight:700;text-transform:uppercase;}
+.d-basic{background:var(--green-d);color:var(--green);}
+.d-mid{background:var(--orange-d);color:var(--orange);}
+.d-adv{background:var(--red-d);color:var(--red);}
+.chev{color:var(--muted);font-size:11px;transition:transform .25s;}
+.card.open .chev{transform:rotate(180deg);}
+.card-body{display:none;padding:0 16px 16px;border-top:1px solid var(--border);}
+.card.open .card-body{display:block;}
+
+/* ── CONTENT ELEMENTS ── */
+h4.clabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:14px 0 6px;}
+p.cp{font-size:13px;color:var(--text);line-height:1.65;margin-bottom:6px;}
+
+pre{background:#05060b;border:1px solid var(--border);border-radius:6px;padding:13px 15px;font-family:var(--mono);font-size:11.5px;line-height:1.8;overflow-x:auto;margin:8px 0;color:#b8cce8;}
+.kw{color:#a78bfa;font-weight:700;}
+.fn{color:#5b9cf6;}
+.str{color:#3dd68c;}
+.cm{color:#394560;font-style:italic;}
+.num{color:#f5a623;}
+.cls{color:#f06b6b;}
+.dec{color:#2dd4bf;}
+.prop{color:#fbbf24;}
+
+.qa{background:#05060b;border:1px solid var(--border);border-radius:6px;margin-top:10px;overflow:hidden;}
+.qa-q{padding:9px 13px;font-size:11.5px;font-weight:700;color:var(--blue);border-bottom:1px solid var(--border);font-family:var(--mono);}
+.qa-q::before{content:"Q: ";color:var(--muted);}
+.qa-a{padding:9px 13px;font-size:12.5px;color:#c0d0e8;line-height:1.65;}
+.qa-a::before{content:"A: ";color:var(--green);font-weight:700;font-family:var(--mono);font-size:10px;}
+
+.hl{border-left:3px solid var(--orange);background:var(--orange-d);border-radius:0 5px 5px 0;padding:9px 13px;margin:10px 0;font-size:12.5px;color:#f0c870;line-height:1.55;}
+.hl.blue{border-color:var(--blue);background:var(--blue-d);color:#8ab8f8;}
+.hl.green{border-color:var(--green);background:var(--green-d);color:#70d8a0;}
+.hl.purple{border-color:var(--purple);background:var(--purple-d);color:#c0a8fa;}
+.hl.teal{border-color:var(--teal);background:var(--teal-d);color:#60d8d0;}
+
+.you-tag{display:inline-flex;align-items:center;gap:5px;background:var(--green-d);border:1px solid color-mix(in srgb,var(--green) 40%,transparent);color:var(--green);border-radius:5px;padding:5px 10px;font-size:11.5px;font-weight:600;margin:8px 0;}
+.you-tag::before{content:"📍 You used this: ";}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+.gcol{background:#05060b;border:1px solid var(--border);border-radius:6px;padding:11px;}
+.gcol h5{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.gcol h5.blue{color:var(--blue);}
+.gcol h5.green{color:var(--green);}
+.gcol h5.orange{color:var(--orange);}
+.gcol h5.purple{color:var(--purple);}
+.gcol h5.red{color:var(--red);}
+.gcol h5.teal{color:var(--teal);}
+.gcol li{list-style:none;font-size:11.5px;color:var(--muted);margin-bottom:4px;padding-left:12px;position:relative;line-height:1.4;}
+.gcol li::before{content:"→";position:absolute;left:0;color:var(--border2);}
+.gcol li strong{color:var(--text);}
+
+.done-btn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;background:none;border:1px solid var(--border2);color:var(--muted);font-family:var(--sans);font-size:12px;font-weight:600;padding:6px 14px;border-radius:5px;cursor:pointer;transition:all .2s;}
+.done-btn:hover{border-color:var(--green);color:var(--green);}
+.card.done .done-btn{background:var(--green-d);border-color:var(--green);color:var(--green);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="topbar-inner">
+    <div class="logo">Bell <span>Study Guide</span> — Joshua Scott</div>
+    <div class="prog-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="pFill"></div></div>
+      <div class="prog-txt" id="pTxt">0 / 0</div>
+    </div>
+  </div>
+  <div id="tabnav"></div>
+</div>
+
+<div class="layout">
+  <aside id="sidebar"></aside>
+  <main id="content"></main>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const SECTIONS = [
+
+// ─────────────────────────────────────────────────────────────
+{ id:"rest-api", label:"REST APIs", topics:[
+
+{ id:"rest-fundamentals", icon:"🌐", title:"REST Fundamentals", diff:"basic", body:`
+<h4 class="clabel">What is REST?</h4>
+<p class="cp">Representational State Transfer — an architectural style for designing APIs over HTTP. It uses standard HTTP methods to perform operations on resources identified by URLs.</p>
+<h4 class="clabel">The 6 REST Constraints</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">Core Constraints</h5>
+    <ul>
+      <li><strong>Stateless</strong> — each request contains everything needed, no server session</li>
+      <li><strong>Client-Server</strong> — UI and data logic are separate concerns</li>
+      <li><strong>Cacheable</strong> — responses can be cached for performance</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">More Constraints</h5>
+    <ul>
+      <li><strong>Uniform Interface</strong> — consistent URL + method conventions</li>
+      <li><strong>Layered System</strong> — client doesn't know if it's talking to CDN or origin</li>
+      <li><strong>Code on Demand</strong> — optional: server can send executable code</li>
+    </ul>
+  </div>
+</div>
+<div class="qa"><div class="qa-q">What makes an API "RESTful"?</div><div class="qa-a">A RESTful API uses HTTP and follows a set of conventions: resources are identified by URLs, operations are performed with standard HTTP methods (GET, POST, PUT, PATCH, DELETE), each request is stateless meaning no session stored on the server, and responses typically return JSON. I've designed APIs following these principles in my MMDB project and consumed them across all my client work — Sanity, Airtable, Hapana booking API.</div></div>
+`},
+
+{ id:"rest-endpoints", icon:"📐", title:"Designing Endpoints — Rules & Examples", diff:"basic", body:`
+<h4 class="clabel">URL Design Rules</h4>
+<pre><span class="cm">// ✔ CORRECT — nouns, not verbs. Plural resources.</span>
+GET    /api/v1/users           <span class="cm">→ list all users</span>
+GET    /api/v1/users/42        <span class="cm">→ get user 42</span>
+POST   /api/v1/users           <span class="cm">→ create a new user</span>
+PUT    /api/v1/users/42        <span class="cm">→ replace user 42 entirely</span>
+PATCH  /api/v1/users/42        <span class="cm">→ update specific fields of user 42</span>
+DELETE /api/v1/users/42        <span class="cm">→ delete user 42</span>
+
+<span class="cm">// ✔ Nested resources — child belongs to parent</span>
+GET    /api/v1/users/42/orders       <span class="cm">→ orders for user 42</span>
+POST   /api/v1/users/42/orders       <span class="cm">→ create order for user 42</span>
+GET    /api/v1/users/42/orders/7     <span class="cm">→ specific order 7 of user 42</span>
+
+<span class="cm">// ✔ Filtering, sorting, pagination via query params</span>
+GET /api/v1/users?role=admin&sort=name&page=2&limit=20
+
+<span class="cm">// ✖ WRONG — verbs in URLs, inconsistent naming</span>
+GET  /getUsers
+POST /createUser
+GET  /users/deleteUser/42
+GET  /user          <span class="cm">← singular, inconsistent</span></pre>
+<div class="hl blue">💡 Bell is a BI team — their APIs likely serve dashboards and scorecards. Think about endpoints like <strong>GET /api/v1/scorecards</strong>, <strong>GET /api/v1/metrics?team=field&date=2026-03</strong></div>
+<div class="qa"><div class="qa-q">How would you design a REST API for a productivity dashboard?</div><div class="qa-a">I'd start by identifying the resources: metrics, scorecards, teams, agents. GET /metrics returns all metrics, with query params for filtering by date range and team. GET /scorecards/:id returns a specific scorecard. POST /metrics would be used by data ingestion services to write new records. I'd version the API at /api/v1/ from day one, use consistent status codes, and return consistent JSON shapes — either a data wrapper or a standard error object.</div></div>
+<div class="you-tag">Designed REST API from scratch in MMDB — GET/POST/PUT/DELETE endpoints, JSON responses, input validation, status codes. Consumed REST APIs in every client project: Sanity, Airtable, Hapana, Resend.</div>
+`},
+
+{ id:"rest-auth", icon:"🔐", title:"Authentication in REST APIs", diff:"mid", body:`
+<h4 class="clabel">Authentication Methods</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">JWT (JSON Web Token)</h5>
+    <ul>
+      <li>Client logs in → server signs a JWT → client stores it</li>
+      <li>Client sends JWT in every request header</li>
+      <li>Server verifies signature — no DB lookup needed</li>
+      <li><strong>Stateless</strong> — scales easily</li>
+      <li>Store in httpOnly cookie (not localStorage)</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="orange">API Keys</h5>
+    <ul>
+      <li>Long random string given to a client app</li>
+      <li>Sent in header: <code>X-API-Key: abc123</code></li>
+      <li>Server looks it up in DB on each request</li>
+      <li>Simple but not user-specific</li>
+      <li>Used in: Sanity, Airtable, Resend (all your projects)</li>
+    </ul>
+  </div>
+</div>
+<h4 class="clabel">JWT Structure</h4>
+<pre><span class="cm">// A JWT has 3 parts separated by dots:</span>
+header.payload.signature
+
+<span class="cm">// Header — algorithm used</span>
+{ "alg": "HS256", "typ": "JWT" }
+
+<span class="cm">// Payload — the claims (data)</span>
+{ "userId": 42, "role": "admin", "exp": 1735689600 }
+
+<span class="cm">// Signature — prevents tampering</span>
+HMACSHA256(base64(header) + "." + base64(payload), secret)
+
+<span class="cm">// How you send it in every request:</span>
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQyfQ.abc</pre>
+<h4 class="clabel">How to implement JWT auth in an API</h4>
+<pre><span class="cm">// 1. User logs in</span>
+POST /api/v1/auth/login
+Body: { email, password }
+Response: { token: "eyJ..." }
+
+<span class="cm">// 2. Client stores token (httpOnly cookie preferred)</span>
+<span class="cm">// 3. Client sends token on every protected request</span>
+GET /api/v1/users/me
+Headers: { Authorization: "Bearer eyJ..." }
+
+<span class="cm">// 4. Server middleware verifies token before route handler</span>
+<span class="kw">const</span> <span class="fn">authMiddleware</span> = (req, res, next) => {
+  <span class="kw">const</span> token = req.headers.authorization?.split(<span class="str">" "</span>)[<span class="num">1</span>]
+  <span class="kw">if</span> (!token) <span class="kw">return</span> res.<span class="fn">status</span>(<span class="num">401</span>).<span class="fn">json</span>({ error: <span class="str">"Unauthorized"</span> })
+  <span class="kw">const</span> payload = jwt.<span class="fn">verify</span>(token, process.env.JWT_SECRET)
+  req.user = payload
+  <span class="fn">next</span>()
+}</pre>
+<div class="hl">⚠️ JWTs can't be invalidated before expiry — if a token is stolen, you can't "revoke" it unless you maintain a blocklist (which breaks statelessness). Keep expiry short (15min–1hr) and use refresh tokens for sessions.</div>
+<div class="qa"><div class="qa-q">What is the difference between authentication and authorization?</div><div class="qa-a">Authentication is proving who you are — logging in, verifying a JWT. Authorization is what you're allowed to do once you're authenticated — checking your role or permissions. A JWT handles authentication: the server verifies the token to confirm your identity. Then authorization checks your role: an admin can delete users, a regular user can't. A 401 status means authentication failed, a 403 means authentication passed but authorization failed.</div></div>
+<div class="you-tag">Used API key auth with every headless CMS and third-party API — Sanity, Airtable, Resend, Hapana. Understand JWT pattern from Next.js auth integrations.</div>
+`},
+
+{ id:"rest-error-handling", icon:"⚠️", title:"API Error Handling & Response Design", diff:"mid", body:`
+<h4 class="clabel">Consistent Response Structure</h4>
+<pre><span class="cm">// ✔ Always return consistent JSON shapes</span>
+
+<span class="cm">// Success response</span>
+{
+  "data": { "id": 42, "name": "Josh" },
+  "meta": { "total": 100, "page": 1 }
+}
+
+<span class="cm">// Error response — always same shape</span>
+{
+  "error": {
+    "code": <span class="str">"VALIDATION_ERROR"</span>,
+    "message": <span class="str">"Email is required"</span>,
+    "field": <span class="str">"email"</span>
+  }
+}
+
+<span class="cm">// Status codes to use:</span>
+<span class="num">200</span> <span class="cm">→ GET success, PATCH/PUT success</span>
+<span class="num">201</span> <span class="cm">→ POST success (resource created)</span>
+<span class="num">204</span> <span class="cm">→ DELETE success (no content to return)</span>
+<span class="num">400</span> <span class="cm">→ Bad request / missing fields</span>
+<span class="num">401</span> <span class="cm">→ Not authenticated</span>
+<span class="num">403</span> <span class="cm">→ Authenticated but not authorized</span>
+<span class="num">404</span> <span class="cm">→ Resource not found</span>
+<span class="num">422</span> <span class="cm">→ Validation failed (e.g. invalid email format)</span>
+<span class="num">500</span> <span class="cm">→ Server error (never expose stack traces in prod)</span></pre>
+<h4 class="clabel">Input Validation Pattern</h4>
+<pre><span class="cm">// Always validate before touching DB</span>
+<span class="kw">function</span> <span class="fn">validateCreateUser</span>(body) {
+  <span class="kw">const</span> errors = []
+  <span class="kw">if</span> (!body.email)             errors.push(<span class="str">"email required"</span>)
+  <span class="kw">if</span> (!body.email?.includes(<span class="str">"@"</span>)) errors.push(<span class="str">"email invalid"</span>)
+  <span class="kw">if</span> (!body.name)              errors.push(<span class="str">"name required"</span>)
+  <span class="kw">if</span> (errors.length) <span class="kw">throw</span> { status: <span class="num">422</span>, errors }
+}</pre>
+<div class="you-tag">Built validation and error handling in MMDB REST API — input validation, proper status codes, JSON error responses.</div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"typescript", label:"TypeScript", topics:[
+
+{ id:"ts-types", icon:"🔷", title:"Types, Interfaces & Type Aliases", diff:"basic", body:`
+<h4 class="clabel">Primitive & Basic Types</h4>
+<pre><span class="kw">let</span> name:     string  = <span class="str">"Josh"</span>
+<span class="kw">let</span> age:      number  = <span class="num">25</span>
+<span class="kw">let</span> active:   boolean = <span class="kw">true</span>
+<span class="kw">let</span> nothing:  null    = <span class="kw">null</span>
+<span class="kw">let</span> missing:  undefined = <span class="kw">undefined</span>
+<span class="kw">let</span> anything: unknown   = <span class="str">"safe any"</span>  <span class="cm">// must check type before using</span>
+
+<span class="cm">// Arrays</span>
+<span class="kw">let</span> names:  string[]       = [<span class="str">"Josh"</span>, <span class="str">"Bell"</span>]
+<span class="kw">let</span> scores: Array&lt;number&gt;  = [<span class="num">95</span>, <span class="num">87</span>]
+
+<span class="cm">// Tuple — fixed length, fixed types</span>
+<span class="kw">let</span> coord: [number, number] = [<span class="num">43.7</span>, -<span class="num">79.4</span>]
+<span class="kw">const</span> [state, setState]     = useState&lt;string&gt;(<span class="str">""</span>) <span class="cm">// ← useState is a tuple!</span></pre>
+<h4 class="clabel">Interface vs Type</h4>
+<pre><span class="cm">// Interface — for objects. Can be extended and merged.</span>
+<span class="kw">interface</span> <span class="cls">User</span> {
+  id:     number
+  name:   string
+  email:  string
+  role?:  string    <span class="cm">// ? means optional</span>
+  readonly createdAt: Date  <span class="cm">// can't change after creation</span>
+}
+
+<span class="cm">// Extend interface</span>
+<span class="kw">interface</span> <span class="cls">Admin</span> <span class="kw">extends</span> <span class="cls">User</span> {
+  permissions: string[]
+}
+
+<span class="cm">// Type alias — for unions, intersections, primitives</span>
+<span class="kw">type</span> <span class="cls">Status</span>  = <span class="str">"pending"</span> | <span class="str">"active"</span> | <span class="str">"inactive"</span>
+<span class="kw">type</span> <span class="cls">ID</span>      = string | number
+<span class="kw">type</span> <span class="cls">AdminUser</span> = User & { permissions: string[] }  <span class="cm">// intersection</span></pre>
+<div class="hl blue">💡 Rule: use <strong>interface</strong> for object shapes (especially API responses and props). Use <strong>type</strong> for unions, intersections, and anything that's not a plain object.</div>
+<div class="qa"><div class="qa-q">What's the difference between interface and type in TypeScript?</div><div class="qa-a">Both define shapes but with different capabilities. Interfaces are extendable with the extends keyword and support declaration merging — if you declare the same interface twice, TypeScript merges them. Type aliases are more flexible: you can use unions, intersections, and mapped types. In practice I use interfaces for object shapes like API response types and React component props, and type aliases for union types like a Status that can be "pending" or "active" or "inactive".</div></div>
+<div class="you-tag">TypeScript is default on all recent projects — Serene Pilates, TDC Church, Pashion Pilates, TDM internship. Used to type Sanity CMS responses, component props, API payloads.</div>
+`},
+
+{ id:"ts-generics", icon:"🧬", title:"Generics", diff:"mid", body:`
+<h4 class="clabel">What Generics Are</h4>
+<p class="cp">Generics let you write reusable code that works with any type while keeping full type safety. Think of T as a variable for types.</p>
+<pre><span class="cm">// Without generic — only works for string arrays</span>
+<span class="kw">function</span> <span class="fn">first</span>(arr: string[]): string { <span class="kw">return</span> arr[<span class="num">0</span>] }
+
+<span class="cm">// With generic T — works for any type, stays typed</span>
+<span class="kw">function</span> <span class="fn">first</span>&lt;T&gt;(arr: T[]): T { <span class="kw">return</span> arr[<span class="num">0</span>] }
+
+<span class="fn">first</span>&lt;string&gt;([<span class="str">"a"</span>, <span class="str">"b"</span>])  <span class="cm">// returns string</span>
+<span class="fn">first</span>&lt;number&gt;([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>])  <span class="cm">// returns number</span>
+<span class="fn">first</span>([<span class="kw">true</span>, <span class="kw">false</span>])     <span class="cm">// TypeScript infers T = boolean</span></pre>
+<h4 class="clabel">Real-World Examples</h4>
+<pre><span class="cm">// Typed fetch wrapper — used on every project</span>
+<span class="kw">async function</span> <span class="fn">fetchData</span>&lt;T&gt;(url: string): Promise&lt;T&gt; {
+  <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(url)
+  <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">\`HTTP \${res.status}\`</span>)
+  <span class="kw">return</span> res.<span class="fn">json</span>() <span class="kw">as</span> T
+}
+
+<span class="cm">// Use it — fully typed</span>
+<span class="kw">const</span> user = <span class="kw">await</span> <span class="fn">fetchData</span>&lt;User&gt;(<span class="str">"/api/users/1"</span>)
+user.name  <span class="cm">// TypeScript knows this is a string</span>
+
+<span class="cm">// Generic React component</span>
+<span class="kw">interface</span> <span class="cls">ListProps</span>&lt;T&gt; {
+  items:    T[]
+  renderItem: (item: T) => React.ReactNode
+}
+
+<span class="kw">function</span> <span class="cls">List</span>&lt;T&gt;({ items, renderItem }: <span class="cls">ListProps</span>&lt;T&gt;) {
+  <span class="kw">return</span> &lt;<span class="cls">ul</span>&gt;{items.<span class="fn">map</span>(renderItem)}&lt;/<span class="cls">ul</span>&gt;
+}</pre>
+<div class="qa"><div class="qa-q">What is a generic and when would you use one?</div><div class="qa-a">A generic is a type variable that lets you write functions or components that work with any type while preserving type safety. Instead of writing the same fetch function three times for users, posts, and products, I write it once with a generic T and the caller specifies what type to expect. useState in React is a great everyday example — useState&lt;string&gt; tells TypeScript the state is a string, so it won't let me set it to a number by accident.</div></div>
+`},
+
+{ id:"ts-utility", icon:"🛠️", title:"Utility Types", diff:"mid", body:`
+<p class="cp">TypeScript has built-in utility types that transform existing types so you don't have to redefine everything.</p>
+<pre><span class="kw">interface</span> <span class="cls">User</span> { id: number; name: string; email: string; password: string }
+
+<span class="cm">// Partial — all fields become optional</span>
+<span class="kw">type</span> <span class="cls">UpdateUser</span> = Partial&lt;User&gt;
+<span class="cm">// { id?: number; name?: string; email?: string; password?: string }</span>
+
+<span class="cm">// Required — all fields become required (opposite of Partial)</span>
+<span class="kw">type</span> <span class="cls">FullUser</span> = Required&lt;User&gt;
+
+<span class="cm">// Pick — select specific fields</span>
+<span class="kw">type</span> <span class="cls">PublicUser</span> = Pick&lt;User, <span class="str">"id"</span> | <span class="str">"name"</span>&gt;
+<span class="cm">// { id: number; name: string } — no password exposed!</span>
+
+<span class="cm">// Omit — exclude specific fields</span>
+<span class="kw">type</span> <span class="cls">SafeUser</span> = Omit&lt;User, <span class="str">"password"</span>&gt;
+<span class="cm">// { id: number; name: string; email: string }</span>
+
+<span class="cm">// Record — object with known keys and value type</span>
+<span class="kw">type</span> <span class="cls">RoleMap</span> = Record&lt;<span class="str">"admin"</span> | <span class="str">"user"</span> | <span class="str">"guest"</span>, string[]&gt;
+
+<span class="cm">// ReturnType — infer the return type of a function</span>
+<span class="kw">type</span> <span class="cls">Result</span> = ReturnType&lt;<span class="kw">typeof</span> fetchUser&gt;</pre>
+<div class="hl green">💡 <strong>Omit&lt;User, "password"&gt;</strong> is used constantly in API design — strip sensitive fields from what you send back to the client.</div>
+<div class="you-tag">Used Pick and Omit patterns when typing Sanity CMS responses — strip internal metadata fields from what's passed to components.</div>
+`},
+
+{ id:"ts-advanced", icon:"⚡", title:"Enums, Type Guards, Narrowing", diff:"adv", body:`
+<h4 class="clabel">Enums</h4>
+<pre><span class="cm">// String enum — preferred (readable in logs)</span>
+<span class="kw">enum</span> <span class="cls">Status</span> {
+  Pending  = <span class="str">"PENDING"</span>,
+  Active   = <span class="str">"ACTIVE"</span>,
+  Inactive = <span class="str">"INACTIVE"</span>
+}
+
+<span class="kw">function</span> <span class="fn">getLabel</span>(s: <span class="cls">Status</span>): string {
+  <span class="kw">if</span> (s === Status.Active) <span class="kw">return</span> <span class="str">"Live"</span>
+  <span class="kw">return</span> <span class="str">"Offline"</span>
+}
+<span class="fn">getLabel</span>(Status.Active)     <span class="cm">// ✔</span>
+<span class="fn">getLabel</span>(<span class="str">"ACTIVE"</span>)           <span class="cm">// ✖ TypeScript error</span></pre>
+<h4 class="clabel">Type Guards & Narrowing</h4>
+<pre><span class="cm">// typeof guard</span>
+<span class="kw">function</span> <span class="fn">double</span>(x: string | number) {
+  <span class="kw">if</span> (<span class="kw">typeof</span> x === <span class="str">"number"</span>) <span class="kw">return</span> x * <span class="num">2</span>   <span class="cm">// x is number here</span>
+  <span class="kw">return</span> x.repeat(<span class="num">2</span>)                          <span class="cm">// x is string here</span>
+}
+
+<span class="cm">// instanceof guard</span>
+<span class="kw">if</span> (err <span class="kw">instanceof</span> Error) console.<span class="fn">log</span>(err.message)
+
+<span class="cm">// Custom type guard — "is" keyword</span>
+<span class="kw">function</span> <span class="fn">isUser</span>(obj: unknown): obj <span class="kw">is</span> User {
+  <span class="kw">return</span> <span class="kw">typeof</span> obj === <span class="str">"object"</span> && obj !== <span class="kw">null</span> && <span class="str">"id"</span> <span class="kw">in</span> obj
+}</pre>
+<div class="qa"><div class="qa-q">What is type narrowing?</div><div class="qa-a">Type narrowing is TypeScript figuring out a more specific type within a conditional block. If I have a variable that's string | number and I check typeof x === "number" inside an if block, TypeScript knows inside that block x is definitely a number — I can call number methods on it without error. It's how you safely work with union types without just casting everything with as.</div></div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"sql", label:"SQL & Databases", topics:[
+
+{ id:"sql-basics", icon:"🗄️", title:"SQL Fundamentals", diff:"basic", body:`
+<h4 class="clabel">The Core SQL Statements</h4>
+<pre><span class="cm">-- SELECT — read data</span>
+<span class="kw">SELECT</span> id, name, email
+<span class="kw">FROM</span> users
+<span class="kw">WHERE</span> active = <span class="kw">true</span>
+<span class="kw">ORDER BY</span> name <span class="kw">ASC</span>
+<span class="kw">LIMIT</span> <span class="num">20</span>
+
+<span class="cm">-- INSERT — add a row</span>
+<span class="kw">INSERT INTO</span> users (name, email, created_at)
+<span class="kw">VALUES</span> (<span class="str">'Josh'</span>, <span class="str">'josh@test.com'</span>, NOW())
+
+<span class="cm">-- UPDATE — modify rows</span>
+<span class="kw">UPDATE</span> users
+<span class="kw">SET</span> name = <span class="str">'Joshua'</span>, updated_at = NOW()
+<span class="kw">WHERE</span> id = <span class="num">42</span>        <span class="cm">-- ⚠️ ALWAYS include WHERE or you update every row!</span>
+
+<span class="cm">-- DELETE — remove rows</span>
+<span class="kw">DELETE FROM</span> users
+<span class="kw">WHERE</span> id = <span class="num">42</span>        <span class="cm">-- ⚠️ ALWAYS include WHERE!</span></pre>
+<h4 class="clabel">Filtering & Conditions</h4>
+<pre><span class="cm">-- AND / OR / NOT</span>
+<span class="kw">WHERE</span> role = <span class="str">'admin'</span> <span class="kw">AND</span> active = <span class="kw">true</span>
+<span class="kw">WHERE</span> age &gt; <span class="num">18</span> <span class="kw">OR</span> parental_consent = <span class="kw">true</span>
+
+<span class="cm">-- IN — match a list</span>
+<span class="kw">WHERE</span> status <span class="kw">IN</span> (<span class="str">'pending'</span>, <span class="str">'active'</span>)
+
+<span class="cm">-- LIKE — pattern matching</span>
+<span class="kw">WHERE</span> name <span class="kw">LIKE</span> <span class="str">'Josh%'</span>   <span class="cm">-- starts with Josh</span>
+<span class="kw">WHERE</span> email <span class="kw">LIKE</span> <span class="str">'%@bell.ca'</span>  <span class="cm">-- ends with @bell.ca</span>
+
+<span class="cm">-- BETWEEN</span>
+<span class="kw">WHERE</span> created_at <span class="kw">BETWEEN</span> <span class="str">'2025-01-01'</span> <span class="kw">AND</span> <span class="str">'2025-12-31'</span>
+
+<span class="cm">-- IS NULL</span>
+<span class="kw">WHERE</span> deleted_at <span class="kw">IS NULL</span>  <span class="cm">-- get non-deleted records (soft delete pattern)</span></pre>
+<div class="you-tag">Used MySQL in MMDB project — full CRUD, complex WHERE conditions, multi-table queries, transaction handling.</div>
+`},
+
+{ id:"sql-joins", icon:"🔗", title:"JOINs — The Most Important SQL Concept", diff:"basic", body:`
+<h4 class="clabel">Types of JOINs</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">INNER JOIN</h5>
+    <ul>
+      <li>Returns rows where match exists in <strong>both</strong> tables</li>
+      <li>If no match — row is excluded entirely</li>
+      <li>Most common JOIN type</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">LEFT JOIN</h5>
+    <ul>
+      <li>Returns <strong>all rows from left</strong> table</li>
+      <li>+ matching rows from right table</li>
+      <li>No match = NULL for right columns</li>
+      <li>Use when you want all records even without a match</li>
+    </ul>
+  </div>
+</div>
+<pre><span class="cm">-- INNER JOIN: users who have orders</span>
+<span class="kw">SELECT</span> u.name, o.total, o.created_at
+<span class="kw">FROM</span> users u
+<span class="kw">INNER JOIN</span> orders o <span class="kw">ON</span> o.user_id = u.id
+<span class="kw">WHERE</span> o.total &gt; <span class="num">100</span>
+
+<span class="cm">-- LEFT JOIN: ALL users, even those with no orders</span>
+<span class="kw">SELECT</span> u.name, COUNT(o.id) <span class="kw">AS</span> order_count
+<span class="kw">FROM</span> users u
+<span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> o.user_id = u.id
+<span class="kw">GROUP BY</span> u.id
+
+<span class="cm">-- Many-to-many via junction table (MMDB pattern)</span>
+<span class="kw">SELECT</span> m.title, g.name <span class="kw">AS</span> genre
+<span class="kw">FROM</span> movies m
+<span class="kw">INNER JOIN</span> movie_genres mg <span class="kw">ON</span> mg.movie_id = m.id
+<span class="kw">INNER JOIN</span> genres g        <span class="kw">ON</span> g.id = mg.genre_id
+<span class="kw">ORDER BY</span> m.title</pre>
+<div class="hl">💡 Bell BI team — you'll absolutely use JOINs to combine field agent data with customer records with productivity metrics. Think: <code>SELECT agents.name, metrics.score FROM agents INNER JOIN metrics ON metrics.agent_id = agents.id</code></div>
+<div class="qa"><div class="qa-q">Explain INNER JOIN vs LEFT JOIN with a real example.</div><div class="qa-a">INNER JOIN returns only rows where there's a match in both tables. LEFT JOIN returns all rows from the left table plus matching rows from the right — if there's no match, you get NULL for the right columns. Real example from my MMDB project: INNER JOIN between movies and movie_genres would only return movies that have a genre assigned. LEFT JOIN would return all movies, showing NULL for the genre column on movies with no genre yet. For reporting you often want LEFT JOIN so you don't accidentally exclude records that haven't been fully populated.</div></div>
+<div class="you-tag">Used INNER JOIN with junction tables in MMDB for many-to-many movie/genre relationships. This pattern is directly applicable to Bell's BI data — agents to metrics to teams.</div>
+`},
+
+{ id:"sql-aggregates", icon:"📊", title:"Aggregates, GROUP BY, Subqueries", diff:"mid", body:`
+<h4 class="clabel">Aggregate Functions — Key for BI</h4>
+<pre><span class="cm">-- COUNT, SUM, AVG, MAX, MIN</span>
+<span class="kw">SELECT</span>
+  COUNT(*)                        <span class="kw">AS</span> total_agents,
+  COUNT(<span class="kw">DISTINCT</span> team_id)         <span class="kw">AS</span> teams,
+  AVG(productivity_score)         <span class="kw">AS</span> avg_score,
+  MAX(productivity_score)         <span class="kw">AS</span> top_score,
+  MIN(productivity_score)         <span class="kw">AS</span> lowest_score,
+  SUM(jobs_completed)             <span class="kw">AS</span> total_jobs
+<span class="kw">FROM</span> field_agents
+<span class="kw">WHERE</span> active = <span class="kw">true</span>
+
+<span class="cm">-- GROUP BY — aggregate per group</span>
+<span class="kw">SELECT</span>
+  team_id,
+  AVG(score) <span class="kw">AS</span> avg_score,
+  COUNT(*)   <span class="kw">AS</span> agent_count
+<span class="kw">FROM</span> agents
+<span class="kw">GROUP BY</span> team_id
+<span class="kw">HAVING</span> AVG(score) &gt; <span class="num">80</span>    <span class="cm">-- HAVING filters on aggregated values (WHERE can't)</span>
+<span class="kw">ORDER BY</span> avg_score <span class="kw">DESC</span></pre>
+<h4 class="clabel">Subqueries</h4>
+<pre><span class="cm">-- Find agents above the company average</span>
+<span class="kw">SELECT</span> name, score
+<span class="kw">FROM</span> agents
+<span class="kw">WHERE</span> score &gt; (
+  <span class="kw">SELECT</span> AVG(score) <span class="kw">FROM</span> agents  <span class="cm">-- subquery runs first</span>
+)</pre>
+<div class="hl blue">💡 Bell's BI team builds scorecards and dashboards — these aggregate queries are the backbone of that work. GROUP BY team, AVG productivity, COUNT completions per day are exactly the queries you'd write.</div>
+<div class="qa"><div class="qa-q">What's the difference between WHERE and HAVING?</div><div class="qa-a">WHERE filters rows before aggregation — it runs on individual rows. HAVING filters after aggregation — it runs on the grouped results. So if I want teams with more than 5 agents, I can't use WHERE because the count doesn't exist yet at that stage. I'd use GROUP BY team_id then HAVING COUNT(*) &gt; 5. A good way to remember it: WHERE is for rows, HAVING is for groups.</div></div>
+`},
+
+{ id:"sql-schema", icon:"📐", title:"Schema Design & Normalization", diff:"mid", body:`
+<h4 class="clabel">Good Schema Design</h4>
+<pre><span class="cm">-- Primary key, foreign key, constraints</span>
+<span class="kw">CREATE TABLE</span> users (
+  id          INT <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+  email       VARCHAR(<span class="num">255</span>) <span class="kw">UNIQUE NOT NULL</span>,
+  name        VARCHAR(<span class="num">100</span>) <span class="kw">NOT NULL</span>,
+  role        ENUM(<span class="str">'admin'</span>, <span class="str">'user'</span>) <span class="kw">DEFAULT</span> <span class="str">'user'</span>,
+  created_at  DATETIME <span class="kw">DEFAULT</span> CURRENT_TIMESTAMP,
+  deleted_at  DATETIME <span class="kw">DEFAULT NULL</span>  <span class="cm">-- soft delete</span>
+)
+
+<span class="kw">CREATE TABLE</span> orders (
+  id          INT <span class="kw">PRIMARY KEY AUTO_INCREMENT</span>,
+  user_id     INT <span class="kw">NOT NULL</span>,
+  total       DECIMAL(<span class="num">10</span>,<span class="num">2</span>) <span class="kw">NOT NULL</span>,
+  created_at  DATETIME <span class="kw">DEFAULT</span> CURRENT_TIMESTAMP,
+  <span class="kw">FOREIGN KEY</span> (user_id) <span class="kw">REFERENCES</span> users(id) <span class="kw">ON DELETE CASCADE</span>
+)
+
+<span class="cm">-- Junction table for many-to-many</span>
+<span class="kw">CREATE TABLE</span> movie_genres (
+  movie_id  INT,
+  genre_id  INT,
+  <span class="kw">PRIMARY KEY</span> (movie_id, genre_id),  <span class="cm">-- composite primary key</span>
+  <span class="kw">FOREIGN KEY</span> (movie_id) <span class="kw">REFERENCES</span> movies(id),
+  <span class="kw">FOREIGN KEY</span> (genre_id) <span class="kw">REFERENCES</span> genres(id)
+)</pre>
+<h4 class="clabel">Normalization in Plain English</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="orange">1NF — No repeating groups</h5>
+    <ul>
+      <li>Each cell holds one value</li>
+      <li>No comma-separated lists in a column</li>
+      <li>Each row is unique</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="blue">2NF — No partial dependencies</h5>
+    <ul>
+      <li>Must be 1NF first</li>
+      <li>Every column depends on the whole primary key</li>
+      <li>Relevant with composite keys</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">3NF — No transitive dependencies</h5>
+    <ul>
+      <li>No column should depend on a non-key column</li>
+      <li>If city depends on zip code, move zip to its own table</li>
+      <li>Goal: store each fact once</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="purple">In Practice</h5>
+    <ul>
+      <li>Normalize to reduce duplicate data</li>
+      <li>Sometimes denormalize for read performance</li>
+      <li>BI/analytics: often denormalized for speed</li>
+    </ul>
+  </div>
+</div>
+<div class="you-tag">Designed normalized schema with junction tables in MMDB — movies, genres, actors, movie_genres, movie_actors tables with proper foreign keys and composite primary keys.</div>
+`},
+
+{ id:"sql-optimization", icon:"🚀", title:"Query Optimization & Indexes", diff:"adv", body:`
+<h4 class="clabel">Indexes — The Most Important Optimization</h4>
+<pre><span class="cm">-- An index is like a book index — lets DB find rows fast without scanning everything</span>
+
+<span class="cm">-- Create index on columns you frequently filter or JOIN on</span>
+<span class="kw">CREATE INDEX</span> idx_users_email    <span class="kw">ON</span> users(email)
+<span class="kw">CREATE INDEX</span> idx_orders_user_id <span class="kw">ON</span> orders(user_id)
+<span class="kw">CREATE INDEX</span> idx_agents_team_date <span class="kw">ON</span> agents(team_id, created_at)  <span class="cm">-- composite</span>
+
+<span class="cm">-- PRIMARY KEY already has an index automatically</span>
+<span class="cm">-- UNIQUE columns also get an index automatically</span>
+
+<span class="cm">-- EXPLAIN — see what the DB is actually doing</span>
+<span class="kw">EXPLAIN SELECT</span> * <span class="kw">FROM</span> users <span class="kw">WHERE</span> email = <span class="str">'josh@test.com'</span>
+<span class="cm">-- Look for "Using index" vs "Full table scan"</span></pre>
+<h4 class="clabel">Common Slow Query Patterns to Avoid</h4>
+<pre><span class="cm">-- ✖ SELECT * — retrieves all columns even unused ones</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> users
+
+<span class="cm">-- ✔ Select only what you need</span>
+<span class="kw">SELECT</span> id, name, email <span class="kw">FROM</span> users
+
+<span class="cm">-- ✖ Function on indexed column — index can't be used</span>
+<span class="kw">WHERE</span> YEAR(created_at) = <span class="num">2025</span>
+
+<span class="cm">-- ✔ Range query instead</span>
+<span class="kw">WHERE</span> created_at >= <span class="str">'2025-01-01'</span> <span class="kw">AND</span> created_at < <span class="str">'2026-01-01'</span>
+
+<span class="cm">-- ✖ N+1 problem — query inside a loop</span>
+<span class="kw">for each</span> user: <span class="kw">SELECT</span> * <span class="kw">FROM</span> orders <span class="kw">WHERE</span> user_id = user.id
+
+<span class="cm">-- ✔ One JOIN instead</span>
+<span class="kw">SELECT</span> u.name, o.total <span class="kw">FROM</span> users u <span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> o.user_id = u.id</pre>
+<div class="qa"><div class="qa-q">What is an index and when would you add one?</div><div class="qa-a">An index is a data structure that allows the database to find rows without scanning every row in the table — similar to a book index. I'd add one on any column I'm frequently filtering by in WHERE clauses, joining on, or ordering by. Foreign key columns should almost always be indexed. The trade-off is that indexes speed up reads but slow down writes slightly because the index has to be updated. For Bell's BI dashboard — columns like agent_id, team_id, and created_at are candidates for indexes since you'll be filtering on them constantly.</div></div>
+`},
+
+{ id:"nosql", icon:"📄", title:"NoSQL — Document Databases", diff:"basic", body:`
+<h4 class="clabel">SQL vs NoSQL</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">SQL (Relational)</h5>
+    <ul>
+      <li>Structured tables, strict schema</li>
+      <li>Strong relationships via foreign keys</li>
+      <li>ACID transactions</li>
+      <li>Best for: financial data, orders, users</li>
+      <li><strong>Bell uses: SQL Server → PostgreSQL</strong></li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">NoSQL (Document)</h5>
+    <ul>
+      <li>Flexible JSON documents</li>
+      <li>Schema can vary per document</li>
+      <li>Scales horizontally easier</li>
+      <li>Best for: content, CMS, logs, real-time</li>
+      <li><strong>You use: Sanity, Contentful, Firebase</strong></li>
+    </ul>
+  </div>
+</div>
+<h4 class="clabel">Sanity CMS — How You've Used NoSQL</h4>
+<pre><span class="cm">// Sanity stores content as documents in a document DB (MongoDB-like)</span>
+<span class="cm">// You query it with GROQ (Graph-Relational Object Queries)</span>
+
+<span class="cm">// Get all published posts with author name</span>
+<span class="kw">const</span> query = <span class="str">\`*[_type == "post" && published == true]{
+  title,
+  slug,
+  publishedAt,
+  "author": author->name,
+  body
+}\`</span>
+
+<span class="kw">const</span> posts = <span class="kw">await</span> client.<span class="fn">fetch</span>(query)
+
+<span class="cm">// This is NoSQL — flexible document structure, no rigid schema</span>
+<span class="cm">// Each post is a JSON document that can have different fields</span></pre>
+<div class="qa"><div class="qa-q">When would you choose NoSQL over SQL?</div><div class="qa-a">I'd choose NoSQL when the data structure is flexible or evolves frequently — like CMS content where different page types have different fields. When you need to scale horizontally across many servers. When you're storing document-like data with deeply nested structures that would require many JOINs in SQL. For Bell's BI work specifically, I'd use SQL — financial and operational data with relationships between agents, teams, and metrics is exactly what relational databases are designed for. I've actually used both: SQL Server and PostgreSQL for relational data, Sanity and Contentful for CMS content across my client projects.</div></div>
+<div class="you-tag">Used Sanity CMS (NoSQL document store) on TDC Church, Serene Pilates, Pashion pilates. Used Contentful on Pashion Pilates. Used Firebase for real-time NoSQL data.</div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"devops", label:"DevOps & CI/CD", topics:[
+
+{ id:"git-workflow", icon:"🌿", title:"Git Workflow & Branching", diff:"basic", body:`
+<h4 class="clabel">Core Git Commands</h4>
+<pre><span class="cm"># Daily workflow</span>
+git status                    <span class="cm"># see what's changed</span>
+git add .                     <span class="cm"># stage all changes</span>
+git add src/components/Nav.tsx <span class="cm"># stage specific file</span>
+git commit -m <span class="str">"feat: add nav component"</span>
+git push origin feature/nav   <span class="cm"># push to remote branch</span>
+
+<span class="cm"># Branching</span>
+git checkout -b feature/dashboard  <span class="cm"># create + switch to new branch</span>
+git checkout main                  <span class="cm"># switch to main</span>
+git merge feature/dashboard        <span class="cm"># merge in changes</span>
+git branch -d feature/dashboard    <span class="cm"># delete branch after merge</span>
+
+<span class="cm"># Syncing</span>
+git pull origin main               <span class="cm"># get latest from remote</span>
+git fetch --all                    <span class="cm"># fetch without merging</span>
+git rebase main                    <span class="cm"># rebase your branch onto latest main</span></pre>
+<h4 class="clabel">Commit Message Convention</h4>
+<pre><span class="cm"># Conventional Commits — used in professional teams</span>
+feat: add user authentication
+fix: resolve null error on profile page
+docs: update API documentation
+refactor: simplify data fetching logic
+chore: update dependencies
+style: format code with prettier
+test: add unit tests for auth module</pre>
+<h4 class="clabel">Branching Strategy (GitFlow)</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">Branch Types</h5>
+    <ul>
+      <li><strong>main</strong> — production, always stable</li>
+      <li><strong>develop</strong> — integration branch</li>
+      <li><strong>feature/*</strong> — new features</li>
+      <li><strong>fix/*</strong> — bug fixes</li>
+      <li><strong>release/*</strong> — release prep</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">PR / Code Review Flow</h5>
+    <ul>
+      <li>Branch off develop/main</li>
+      <li>Commit your work</li>
+      <li>Open Pull Request</li>
+      <li>Team reviews code</li>
+      <li>CI checks pass → merge</li>
+    </ul>
+  </div>
+</div>
+<div class="you-tag">Used Git branching on all client projects — feature branches, preview deployments per branch on Vercel, merge to main triggers production deploy. Used in TDM internship in agile team workflow.</div>
+`},
+
+{ id:"github-actions", icon:"⚙️", title:"GitHub Actions — CI/CD Pipeline", diff:"mid", body:`
+<h4 class="clabel">What GitHub Actions Is</h4>
+<p class="cp">GitHub Actions is an automation platform built into GitHub. You define workflows in YAML files that trigger on events like push or pull_request. Each workflow runs jobs with steps.</p>
+<h4 class="clabel">A Real CI/CD Workflow File</h4>
+<pre><span class="cm"># .github/workflows/ci.yml</span>
+<span class="prop">name</span>: CI/CD Pipeline
+
+<span class="prop">on</span>:
+  <span class="prop">push</span>:
+    <span class="prop">branches</span>: [main, develop]
+  <span class="prop">pull_request</span>:
+    <span class="prop">branches</span>: [main]
+
+<span class="prop">jobs</span>:
+  <span class="prop">build-and-test</span>:
+    <span class="prop">runs-on</span>: ubuntu-latest
+
+    <span class="prop">steps</span>:
+      - <span class="prop">name</span>: Checkout code
+        <span class="prop">uses</span>: actions/checkout@v3
+
+      - <span class="prop">name</span>: Setup Node.js
+        <span class="prop">uses</span>: actions/setup-node@v3
+        <span class="prop">with</span>:
+          <span class="prop">node-version</span>: <span class="str">'18'</span>
+
+      - <span class="prop">name</span>: Install dependencies
+        <span class="prop">run</span>: npm ci
+
+      - <span class="prop">name</span>: Type check
+        <span class="prop">run</span>: npx tsc --noEmit
+
+      - <span class="prop">name</span>: Run tests
+        <span class="prop">run</span>: npm test
+
+      - <span class="prop">name</span>: Build
+        <span class="prop">run</span>: npm run build
+
+  <span class="prop">deploy</span>:
+    <span class="prop">needs</span>: build-and-test     <span class="cm"># only runs if build-and-test passes</span>
+    <span class="prop">runs-on</span>: ubuntu-latest
+    <span class="prop">if</span>: github.ref == <span class="str">'refs/heads/main'</span>  <span class="cm"># only on main branch</span>
+    <span class="prop">steps</span>:
+      - <span class="prop">name</span>: Deploy to production
+        <span class="prop">run</span>: <span class="cm"># deployment command here</span></pre>
+<h4 class="clabel">Your Vercel Pipeline (What You Actually Have)</h4>
+<pre><span class="cm"># Vercel integrates with GitHub and auto-creates this pipeline:</span>
+
+Push to any branch
+  → Vercel detects push via GitHub webhook
+  → Vercel installs dependencies (npm ci)
+  → Vercel builds Next.js app (next build)
+  → If build fails → pipeline stops, no deploy
+  → If build passes → preview URL created for that branch
+
+Push/merge to main
+  → Same build process
+  → If passes → deploys to production automatically</pre>
+<div class="hl green">💡 Your Vercel pipeline IS a CI/CD pipeline. The difference is GitHub Actions gives you more control — you can add testing, linting, type checking, security scans as separate steps before deploying.</div>
+<div class="qa"><div class="qa-q">Walk me through your CI/CD setup.</div><div class="qa-a">On all my projects I use GitHub as the source of truth connected to Vercel. Every branch push triggers an automated build — Vercel installs dependencies, runs next build, and if it passes, creates a preview URL unique to that branch. When changes are reviewed and merged to main, Vercel automatically deploys to production. There's no manual deployment step at any point. In a more complex environment like Bell I'd extend this with GitHub Actions to add TypeScript type checking, linting, and automated tests as gates before the deploy step.</div></div>
+<div class="you-tag">Implemented CI/CD on Serene Pilates, TDC Church, Pashion Pilates, True North Party Rentals. Branch preview deployments + automated production deploys on merge to main.</div>
+`},
+
+{ id:"azure-devops", icon:"☁️", title:"Azure DevOps — What Bell Probably Uses", diff:"mid", body:`
+<h4 class="clabel">Azure DevOps vs GitHub Actions</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">Azure DevOps</h5>
+    <ul>
+      <li>Microsoft's enterprise CI/CD platform</li>
+      <li>Azure Pipelines — like GitHub Actions but for Azure</li>
+      <li>Azure Repos — like GitHub for code</li>
+      <li>Azure Boards — project management (like Jira)</li>
+      <li>Integrates deeply with Azure cloud</li>
+      <li><strong>Bell likely uses this — Microsoft ecosystem</strong></li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">GitHub Actions</h5>
+    <ul>
+      <li>Built into GitHub repos</li>
+      <li>YAML-based workflow files</li>
+      <li>Large marketplace of pre-built actions</li>
+      <li>Easier setup, free for public repos</li>
+      <li><strong>What you use today</strong></li>
+    </ul>
+  </div>
+</div>
+<h4 class="clabel">Azure Pipeline YAML (Same Concepts, Different Syntax)</h4>
+<pre><span class="cm"># azure-pipelines.yml</span>
+<span class="prop">trigger</span>:
+  <span class="prop">branches</span>:
+    <span class="prop">include</span>: [main, develop]
+
+<span class="prop">pool</span>:
+  <span class="prop">vmImage</span>: <span class="str">'ubuntu-latest'</span>
+
+<span class="prop">steps</span>:
+- <span class="prop">task</span>: NodeTool@0
+  <span class="prop">inputs</span>:
+    <span class="prop">versionSpec</span>: <span class="str">'18.x'</span>
+
+- <span class="prop">script</span>: npm ci
+  <span class="prop">displayName</span>: <span class="str">'Install dependencies'</span>
+
+- <span class="prop">script</span>: npm run build
+  <span class="prop">displayName</span>: <span class="str">'Build application'</span>
+
+- <span class="prop">task</span>: AzureWebApp@1
+  <span class="prop">inputs</span>:
+    <span class="prop">appName</span>: <span class="str">'my-app'</span></pre>
+<div class="hl">💡 The concepts are identical to GitHub Actions — triggers, jobs, steps, environment variables. The syntax is slightly different but if you understand GitHub Actions you can read Azure Pipelines.</div>
+<div class="qa"><div class="qa-q">You haven't used Azure DevOps — how would you pick it up?</div><div class="qa-a">I haven't used Azure DevOps directly, but I've implemented CI/CD pipelines with GitHub Actions and Vercel and I understand the pipeline architecture deeply — triggers, jobs, steps, conditional deployments, environment variables, secrets. Azure Pipelines uses the same YAML-based configuration with the same conceptual model. I've already reviewed the Azure Pipelines documentation and the syntax differences are straightforward. The underlying concepts transfer completely.</div></div>
+`},
+
+{ id:"environments", icon:"🏗️", title:"Environments — Dev, Staging, Production", diff:"basic", body:`
+<h4 class="clabel">The Three Environments</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">Development</h5>
+    <ul>
+      <li>Local machine / localhost</li>
+      <li>Uses .env.local with test API keys</li>
+      <li>Hot reloading, debug tools on</li>
+      <li>Can break freely — no users affected</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="orange">Staging / Preview</h5>
+    <ul>
+      <li>Mirrors production setup</li>
+      <li>Used for testing before going live</li>
+      <li>In Vercel: every branch = staging URL</li>
+      <li>Client reviews happen here</li>
+    </ul>
+  </div>
+</div>
+<pre><span class="cm"># .env.local — development only, never commit!</span>
+NEXT_PUBLIC_API_URL=http://localhost:3000
+DATABASE_URL=postgresql://localhost/mydb_dev
+SANITY_TOKEN=dev_token_xxx
+
+<span class="cm"># Environment variables in Vercel dashboard</span>
+<span class="cm"># Preview: separate vars for staging</span>
+<span class="cm"># Production: real API keys, real DB</span></pre>
+<div class="hl green">💡 Never commit .env files to Git. Use the hosting platform's environment variable settings. Each environment should have its own database — you don't want dev data polluting production.</div>
+<div class="you-tag">Managed separate environment variables for preview vs production on all Vercel projects. Used .env.local for development with test API keys, production env vars set in Vercel dashboard.</div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"react-next", label:"React & Next.js", topics:[
+
+{ id:"nextjs-architecture", icon:"⚡", title:"Next.js App Router Architecture", diff:"basic", body:`
+<h4 class="clabel">App Router Folder Structure</h4>
+<pre><span class="cm">app/
+├── layout.tsx         ← Root layout — wraps ALL pages</span>
+├── page.tsx           ← Home page (/)
+├── loading.tsx        ← Loading UI for this segment
+├── error.tsx          ← Error boundary for this segment
+├── not-found.tsx      ← 404 page
+├── (marketing)/       ← Route group — no URL impact
+│   └── about/
+│       └── page.tsx   ← /about
+├── dashboard/
+│   ├── layout.tsx     ← Dashboard-specific layout
+│   └── page.tsx       ← /dashboard
+├── api/
+│   └── users/
+│       └── route.ts   ← API route: GET/POST /api/users
+└── components/        ← Shared components</pre>
+<h4 class="clabel">Server vs Client Components</h4>
+<pre><span class="cm">// Server Component (default — no 'use client')</span>
+<span class="cm">// Runs on server, can fetch data directly, no JS shipped to browser</span>
+<span class="kw">async function</span> <span class="cls">ProductPage</span>({ params }) {
+  <span class="kw">const</span> product = <span class="kw">await</span> <span class="fn">getProduct</span>(params.id)  <span class="cm">// direct DB/API call</span>
+  <span class="kw">return</span> &lt;<span class="cls">div</span>&gt;{product.name}&lt;/<span class="cls">div</span>&gt;
+}
+
+<span class="cm">// Client Component — needs interactivity</span>
+<span class="str">"use client"</span>
+<span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">"react"</span>
+
+<span class="kw">function</span> <span class="cls">AddToCart</span>({ productId }) {
+  <span class="kw">const</span> [added, setAdded] = <span class="fn">useState</span>(<span class="kw">false</span>)
+  <span class="kw">return</span> &lt;<span class="cls">button</span> onClick={() =&gt; <span class="fn">setAdded</span>(<span class="kw">true</span>)}&gt;Add&lt;/<span class="cls">button</span>&gt;
+}</pre>
+<div class="hl blue">💡 Rule: default to Server Components. Only add "use client" when you need useState, useEffect, onClick, or browser APIs. Server Components = better performance because zero JS is sent for them.</div>
+<div class="you-tag">Used App Router on Serene Pilates, TDC Church, Pilates Haus. Mix of Server Components for data fetching and Client Components for interactive UI elements like booking forms and nav menus.</div>
+`},
+
+{ id:"data-fetching", icon:"📡", title:"Data Fetching Patterns in Next.js", diff:"mid", body:`
+<h4 class="clabel">Server Component Fetching (Recommended)</h4>
+<pre><span class="cm">// app/posts/page.tsx — Server Component</span>
+<span class="kw">async function</span> <span class="cls">PostsPage</span>() {
+  <span class="cm">// Fetch directly — no useEffect, no loading state</span>
+  <span class="kw">const</span> posts = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"https://api.sanity.io/..."</span>, {
+    next: { revalidate: <span class="num">3600</span> }  <span class="cm">// ISR: revalidate every hour</span>
+  }).<span class="fn">then</span>(r => r.<span class="fn">json</span>())
+
+  <span class="kw">return</span> &lt;<span class="cls">PostList</span> posts={posts} /&gt;
+}
+
+<span class="cm">// Caching options:</span>
+{ cache: <span class="str">"force-cache"</span> }     <span class="cm">// static — cache forever (SSG)</span>
+{ cache: <span class="str">"no-store"</span> }       <span class="cm">// always fresh (SSR)</span>
+{ next: { revalidate: <span class="num">60</span> } } <span class="cm">// ISR — revalidate every 60 seconds</span></pre>
+<h4 class="clabel">Client-Side Fetching (When You Need It)</h4>
+<pre><span class="str">"use client"</span>
+<span class="kw">import</span> { useState, useEffect } <span class="kw">from</span> <span class="str">"react"</span>
+
+<span class="kw">function</span> <span class="cls">UserProfile</span>({ userId }) {
+  <span class="kw">const</span> [user, setUser]       = <span class="fn">useState</span>(<span class="kw">null</span>)
+  <span class="kw">const</span> [loading, setLoading] = <span class="fn">useState</span>(<span class="kw">true</span>)
+  <span class="kw">const</span> [error, setError]     = <span class="fn">useState</span>(<span class="kw">null</span>)
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="fn">fetch</span>(<span class="str">\`/api/users/\${userId}\`</span>)
+      .<span class="fn">then</span>(r => r.<span class="fn">json</span>())
+      .<span class="fn">then</span>(setUser)
+      .<span class="fn">catch</span>(setError)
+      .<span class="fn">finally</span>(() => <span class="fn">setLoading</span>(<span class="kw">false</span>))
+  }, [userId])
+
+  <span class="kw">if</span> (loading) <span class="kw">return</span> &lt;<span class="cls">Spinner</span> /&gt;
+  <span class="kw">if</span> (error)   <span class="kw">return</span> &lt;<span class="cls">Error</span> /&gt;
+  <span class="kw">return</span> &lt;<span class="cls">div</span>&gt;{user.name}&lt;/<span class="cls">div</span>&gt;
+}</pre>
+<div class="you-tag">Used server-side data fetching with Sanity GROQ queries on TDC Church and Serene Pilates. Used client-side fetching for Hapana booking API calls that needed real-time availability.</div>
+`},
+
+{ id:"state-management", icon:"🔄", title:"State Management", diff:"mid", body:`
+<h4 class="clabel">When to Use What</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">useState</h5>
+    <ul>
+      <li>Simple local component state</li>
+      <li>Form inputs, toggles, counters</li>
+      <li>Data that only one component needs</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">useContext</h5>
+    <ul>
+      <li>Global state without a library</li>
+      <li>Theme, auth state, user preferences</li>
+      <li>Avoids prop drilling through many levels</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="orange">useReducer</h5>
+    <ul>
+      <li>Complex state with multiple sub-values</li>
+      <li>When next state depends on current state</li>
+      <li>Like useState but with a dispatch/action pattern</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="purple">External (Zustand/Redux)</h5>
+    <ul>
+      <li>Large apps with complex shared state</li>
+      <li>State that needs to persist or be synced</li>
+      <li>When Context causes too many re-renders</li>
+    </ul>
+  </div>
+</div>
+<h4 class="clabel">useReducer Pattern</h4>
+<pre><span class="kw">const</span> <span class="fn">reducer</span> = (state, action) => {
+  <span class="kw">switch</span> (action.type) {
+    <span class="kw">case</span> <span class="str">"INCREMENT"</span>: <span class="kw">return</span> { ...state, count: state.count + <span class="num">1</span> }
+    <span class="kw">case</span> <span class="str">"RESET"</span>:     <span class="kw">return</span> { count: <span class="num">0</span> }
+    <span class="kw">default</span>:         <span class="kw">return</span> state
+  }
+}
+
+<span class="kw">const</span> [state, dispatch] = <span class="fn">useReducer</span>(reducer, { count: <span class="num">0</span> })
+<span class="fn">dispatch</span>({ type: <span class="str">"INCREMENT"</span> })</pre>
+<div class="qa"><div class="qa-q">How do you handle state management in your React projects?</div><div class="qa-a">I match the tool to the complexity. useState for simple local state — form inputs, toggles, individual component data. useContext for global state like auth or theme that multiple components need without prop drilling. For the projects I've built, useState and Context have been sufficient. In a larger application like Bell's BI dashboards I'd evaluate whether something like Zustand makes sense — it's lightweight, doesn't require the boilerplate of Redux, and works well for shared dashboard filter state that multiple chart components need to consume.</div></div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"csharp", label:"C# / .NET", topics:[
+
+{ id:"csharp-basics", icon:"🔷", title:"C# Basics — TypeScript Parallels", diff:"mid", body:`
+<h4 class="clabel">C# vs TypeScript — Side by Side</h4>
+<pre><span class="cm">// TypeScript                    | C#</span>
+<span class="kw">const</span> name: string = <span class="str">"Josh"</span>    <span class="cm">// string name = "Josh";</span>
+<span class="kw">let</span> age: number = <span class="num">25</span>          <span class="cm">// int age = 25;</span>
+<span class="kw">const</span> price: number = <span class="num">9.99</span>    <span class="cm">// decimal price = 9.99m;</span>
+<span class="kw">let</span> active: boolean = <span class="kw">true</span>    <span class="cm">// bool active = true;</span>
+
+<span class="cm">// TypeScript function</span>
+<span class="kw">function</span> <span class="fn">add</span>(a: number, b: number): number {
+  <span class="kw">return</span> a + b
+}
+
+<span class="cm">// C# equivalent</span>
+<span class="kw">public int</span> <span class="fn">Add</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) {
+  <span class="kw">return</span> a + b;
+}
+
+<span class="cm">// TypeScript interface</span>
+<span class="kw">interface</span> <span class="cls">User</span> { id: number; name: string }
+
+<span class="cm">// C# equivalent</span>
+<span class="kw">public class</span> <span class="cls">User</span> {
+  <span class="kw">public int</span> Id { <span class="kw">get</span>; <span class="kw">set</span>; }
+  <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; }
+}</pre>
+<h4 class="clabel">C# Classes & Properties</h4>
+<pre><span class="kw">public class</span> <span class="cls">Product</span> {
+  <span class="cm">// Auto-implemented properties</span>
+  <span class="kw">public int</span> Id { <span class="kw">get</span>; <span class="kw">set</span>; }
+  <span class="kw">public string</span> Name { <span class="kw">get</span>; <span class="kw">set</span>; } = <span class="str">""</span>;
+  <span class="kw">public decimal</span> Price { <span class="kw">get</span>; <span class="kw">set</span>; }
+
+  <span class="cm">// Constructor</span>
+  <span class="kw">public</span> <span class="fn">Product</span>(<span class="kw">string</span> name, <span class="kw">decimal</span> price) {
+    Name  = name;
+    Price = price;
+  }
+
+  <span class="cm">// Method</span>
+  <span class="kw">public string</span> <span class="fn">GetLabel</span>() => <span class="str">$"{Name}: &#36;{Price:F2}"</span>;
+}</pre>
+<div class="hl purple">💡 The mental model from TypeScript transfers directly: strong typing, interfaces, classes, generics — C# just has stricter rules and more explicit syntax. The OOP patterns are the same.</div>
+<div class="qa"><div class="qa-q">You don't have C# experience. How would you ramp up?</div><div class="qa-a">My TypeScript background gives me a solid foundation — strong typing, OOP patterns, interfaces, generics are all directly analogous. The mental model transfers. What I need to learn is the syntax and .NET-specific tooling. I've already started: I'm working through the Microsoft Learn ASP.NET Core fundamentals track and building a simple CRUD API to get hands-on. I'd estimate 2–3 weeks to be productive with guidance, and the front-end side I can contribute to from day one.</div></div>
+`},
+
+{ id:"aspnet-core", icon:"🏗️", title:"ASP.NET Core — MVC & Web API", diff:"mid", body:`
+<h4 class="clabel">ASP.NET Core Web API Structure</h4>
+<pre><span class="cm">// Controller — handles HTTP requests</span>
+[<span class="dec">ApiController</span>]
+[<span class="dec">Route</span>(<span class="str">"api/v1/[controller]"</span>)]
+<span class="kw">public class</span> <span class="cls">UsersController</span> : <span class="cls">ControllerBase</span>
+{
+  <span class="kw">private readonly</span> <span class="cls">IUserService</span> _userService;
+
+  <span class="cm">// Dependency Injection via constructor</span>
+  <span class="kw">public</span> <span class="fn">UsersController</span>(<span class="cls">IUserService</span> userService) {
+    _userService = userService;
+  }
+
+  <span class="cm">// GET api/v1/users</span>
+  [<span class="dec">HttpGet</span>]
+  <span class="kw">public async</span> Task&lt;IActionResult&gt; <span class="fn">GetAll</span>() {
+    <span class="kw">var</span> users = <span class="kw">await</span> _userService.<span class="fn">GetAllAsync</span>();
+    <span class="kw">return</span> <span class="fn">Ok</span>(users);  <span class="cm">// 200 OK</span>
+  }
+
+  <span class="cm">// GET api/v1/users/42</span>
+  [<span class="dec">HttpGet</span>(<span class="str">"{id}"</span>)]
+  <span class="kw">public async</span> Task&lt;IActionResult&gt; <span class="fn">GetById</span>(<span class="kw">int</span> id) {
+    <span class="kw">var</span> user = <span class="kw">await</span> _userService.<span class="fn">GetByIdAsync</span>(id);
+    <span class="kw">if</span> (user == <span class="kw">null</span>) <span class="kw">return</span> <span class="fn">NotFound</span>();  <span class="cm">// 404</span>
+    <span class="kw">return</span> <span class="fn">Ok</span>(user);
+  }
+
+  <span class="cm">// POST api/v1/users</span>
+  [<span class="dec">HttpPost</span>]
+  <span class="kw">public async</span> Task&lt;IActionResult&gt; <span class="fn">Create</span>(<span class="cls">CreateUserDto</span> dto) {
+    <span class="kw">var</span> user = <span class="kw">await</span> _userService.<span class="fn">CreateAsync</span>(dto);
+    <span class="kw">return</span> <span class="fn">CreatedAtAction</span>(<span class="kw">nameof</span>(<span class="fn">GetById</span>), <span class="kw">new</span> { id = user.Id }, user);
+  }
+}</pre>
+<h4 class="clabel">Dependency Injection in .NET</h4>
+<pre><span class="cm">// Register in Program.cs</span>
+builder.Services.<span class="fn">AddScoped</span>&lt;<span class="cls">IUserService</span>, <span class="cls">UserService</span>&gt;();
+builder.Services.<span class="fn">AddScoped</span>&lt;<span class="cls">IUserRepository</span>, <span class="cls">UserRepository</span>&gt;();
+
+<span class="cm">// Scopes:</span>
+<span class="cm">// AddSingleton  — one instance for app lifetime</span>
+<span class="cm">// AddScoped     — one instance per HTTP request (most common)</span>
+<span class="cm">// AddTransient  — new instance every time it's requested</span></pre>
+<div class="hl blue">💡 The pattern mirrors Express.js (Node): Router → Controller → Service → Repository. The layers are the same — just different syntax and stricter typing with C#.</div>
+<div class="qa"><div class="qa-q">What is dependency injection and why is it important?</div><div class="qa-a">Dependency injection means a class receives its dependencies from outside rather than creating them itself. In ASP.NET Core the framework injects services through the constructor. The main benefit is testability — in a unit test I can inject a mock service instead of the real database service, so I'm only testing the controller logic. It also makes the code loosely coupled — the controller doesn't care whether the UserService talks to SQL Server or PostgreSQL, it just uses the interface. I understand the pattern conceptually through JavaScript module design and have studied the ASP.NET Core DI system specifically.</div></div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"performance", label:"Performance", topics:[
+
+{ id:"web-performance", icon:"🚀", title:"Web Performance Optimization", diff:"mid", body:`
+<h4 class="clabel">Core Web Vitals — What Bell Will Care About</h4>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">LCP — Largest Contentful Paint</h5>
+    <ul>
+      <li>Time until main content loads</li>
+      <li>Target: under <strong>2.5 seconds</strong></li>
+      <li>Fix: optimize images, preload fonts, reduce server response time</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="green">CLS — Cumulative Layout Shift</h5>
+    <ul>
+      <li>How much page layout jumps</li>
+      <li>Target: under <strong>0.1</strong></li>
+      <li>Fix: set width/height on images, avoid inserting content above existing content</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="orange">INP — Interaction to Next Paint</h5>
+    <ul>
+      <li>Responsiveness to user input</li>
+      <li>Target: under <strong>200ms</strong></li>
+      <li>Fix: reduce JavaScript execution, defer non-critical work</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="purple">FCP — First Contentful Paint</h5>
+    <ul>
+      <li>Time until first content appears</li>
+      <li>Target: under <strong>1.8 seconds</strong></li>
+      <li>Fix: server-side rendering, reduce render-blocking resources</li>
+    </ul>
+  </div>
+</div>
+<h4 class="clabel">Techniques You've Used</h4>
+<pre><span class="cm">// 1. Next.js Image — automatic optimization</span>
+<span class="kw">import</span> Image <span class="kw">from</span> <span class="str">"next/image"</span>
+&lt;<span class="cls">Image</span>
+  src=<span class="str">"/hero.jpg"</span>
+  width={<span class="num">1200</span>} height={<span class="num">600</span>}
+  priority          <span class="cm">// preload above-fold image</span>
+  placeholder=<span class="str">"blur"</span>  <span class="cm">// show blur while loading</span>
+  sizes=<span class="str">"(max-width: 768px) 100vw, 1200px"</span>
+/&gt;
+<span class="cm">// → Auto-converts to WebP, resizes for viewport, lazy loads by default</span>
+
+<span class="cm">// 2. Dynamic imports — code splitting</span>
+<span class="kw">const</span> HeavyChart = <span class="fn">dynamic</span>(() => <span class="kw">import</span>(<span class="str">"./HeavyChart"</span>), {
+  loading: () => &lt;<span class="cls">Spinner</span> /&gt;,
+  ssr: <span class="kw">false</span>   <span class="cm">// client-only component</span>
+})
+
+<span class="cm">// 3. Font optimization</span>
+<span class="kw">import</span> { Inter } <span class="kw">from</span> <span class="str">"next/font/google"</span>
+<span class="kw">const</span> inter = <span class="fn">Inter</span>({ subsets: [<span class="str">"latin"</span>], display: <span class="str">"swap"</span> })
+<span class="cm">// → Self-hosted, no layout shift, zero network request to Google</span></pre>
+<div class="you-tag">Achieved 40%+ page load improvements on Serene Pilates, TDC Church, Pashion Pilates through Next.js Image optimization, lazy loading, code splitting, and Server Components reducing JS bundle size.</div>
+<div class="qa"><div class="qa-q">How have you improved performance on your projects?</div><div class="qa-a">Consistently across projects I've hit 40%+ improvements in page load times through a combination of approaches. Next.js Image handles automatic WebP conversion and viewport-appropriate sizing. Dynamic imports split the JavaScript bundle so users only download code for the page they're on. Server Components in Next.js 13+ mean entire sections of the UI ship zero JavaScript to the browser. I use Lighthouse and Chrome DevTools as standard workflow tools to measure before and after — not just checking the number but understanding what's causing the bottleneck.</div></div>
+`},
+
+{ id:"caching-strategies", icon:"💾", title:"Caching Strategies", diff:"mid", body:`
+<h4 class="clabel">Types of Caching</h4>
+<pre><span class="cm">// 1. HTTP Cache-Control headers — browser caching</span>
+Cache-Control: public, max-age=31536000, immutable
+<span class="cm">// ↑ Cache forever (for versioned assets like /app.abc123.js)</span>
+
+Cache-Control: no-store
+<span class="cm">// ↑ Never cache (for API responses with user data)</span>
+
+Cache-Control: max-age=3600, stale-while-revalidate=86400
+<span class="cm">// ↑ Serve fresh for 1hr, serve stale while revalidating for 24hrs</span>
+
+<span class="cm">// 2. Next.js Data Cache</span>
+<span class="kw">await</span> <span class="fn">fetch</span>(url, { cache: <span class="str">"force-cache"</span> })      <span class="cm">// static</span>
+<span class="kw">await</span> <span class="fn">fetch</span>(url, { cache: <span class="str">"no-store"</span> })          <span class="cm">// dynamic</span>
+<span class="kw">await</span> <span class="fn">fetch</span>(url, { next: { revalidate: <span class="num">60</span> }})    <span class="cm">// ISR — every 60s</span>
+
+<span class="cm">// 3. CDN Caching — Vercel Edge Network</span>
+<span class="cm">// Static assets cached at edge nodes globally</span>
+<span class="cm">// User in Vancouver hits Vancouver edge, not Toronto origin</span>
+
+<span class="cm">// 4. Memoization — React level</span>
+<span class="kw">const</span> result = <span class="fn">useMemo</span>(() => <span class="fn">expensiveCalc</span>(data), [data])</pre>
+<div class="hl teal">💡 For Bell's BI dashboards: productivity metrics probably don't change every second. ISR (revalidate every 5-10 minutes) would be perfect — fast page loads from cache, fresh enough data for business decisions.</div>
+`}
+
+]},
+
+// ─────────────────────────────────────────────────────────────
+{ id:"js-deep", label:"JS Deep Dive", topics:[
+
+{ id:"event-loop", icon:"🔄", title:"The Event Loop", diff:"adv", body:`
+<h4 class="clabel">How JavaScript Handles Async</h4>
+<p class="cp">JavaScript is single-threaded — it can only do one thing at a time. The event loop is how it handles async operations without blocking.</p>
+<pre><span class="cm">// Execution order — this trips people up</span>
+console.<span class="fn">log</span>(<span class="str">"1"</span>)                      <span class="cm">// → prints 1 (sync)</span>
+
+<span class="fn">setTimeout</span>(() => console.<span class="fn">log</span>(<span class="str">"2"</span>), <span class="num">0</span>)  <span class="cm">// → prints LAST (macrotask)</span>
+
+Promise.<span class="fn">resolve</span>().<span class="fn">then</span>(() =>
+  console.<span class="fn">log</span>(<span class="str">"3"</span>))                   <span class="cm">// → prints second (microtask)</span>
+
+console.<span class="fn">log</span>(<span class="str">"4"</span>)                      <span class="cm">// → prints 4 (sync)</span>
+
+<span class="cm">// Output: 1, 4, 3, 2</span>
+<span class="cm">// Order: sync first → microtasks (Promises) → macrotasks (setTimeout)</span></pre>
+<div class="grid2">
+  <div class="gcol"><h5 class="blue">Call Stack</h5>
+    <ul>
+      <li>Synchronous code runs here</li>
+      <li>LIFO — last in, first out</li>
+      <li>Function calls are pushed on</li>
+      <li>Returns pop them off</li>
+    </ul>
+  </div>
+  <div class="gcol"><h5 class="orange">Task Queue</h5>
+    <ul>
+      <li>Microtask queue: Promises, queueMicrotask</li>
+      <li>Macrotask queue: setTimeout, setInterval, I/O</li>
+      <li>Microtasks run before macrotasks</li>
+      <li>Event loop picks tasks when stack is empty</li>
+    </ul>
+  </div>
+</div>
+<div class="qa"><div class="qa-q">What is the event loop?</div><div class="qa-a">The event loop is how JavaScript handles asynchronous operations in a single-threaded environment. When async work completes — like a fetch call finishing — the callback goes into a task queue. The event loop constantly checks: is the call stack empty? If yes, pick the next task from the queue and run it. Promises go into the microtask queue which has higher priority than the macrotask queue where setTimeout lives. So Promises always resolve before setTimeout callbacks, even a setTimeout of 0.</div></div>
+`},
+
+{ id:"prototypes", icon:"🧬", title:"Prototypes & 'this'", diff:"adv", body:`
+<h4 class="clabel">The 'this' Problem</h4>
+<pre><span class="cm">// 'this' changes based on HOW a function is called</span>
+
+<span class="kw">const</span> user = {
+  name: <span class="str">"Josh"</span>,
+  greet: <span class="kw">function</span>() {
+    console.<span class="fn">log</span>(<span class="kw">this</span>.name)  <span class="cm">// 'this' = user object</span>
+  },
+  greetArrow: () => {
+    console.<span class="fn">log</span>(<span class="kw">this</span>.name)  <span class="cm">// 'this' = outer scope (undefined in modules)</span>
+  }
+}
+
+user.<span class="fn">greet</span>()       <span class="cm">// "Josh" ✔</span>
+user.<span class="fn">greetArrow</span>()  <span class="cm">// undefined ✖</span>
+
+<span class="cm">// In React event handlers — why arrow functions matter</span>
+<span class="kw">class</span> <span class="cls">Button</span> <span class="kw">extends</span> <span class="cls">React.Component</span> {
+  <span class="fn">handleClick</span>() {
+    console.<span class="fn">log</span>(<span class="kw">this</span>)  <span class="cm">// undefined if not bound!</span>
+  }
+  <span class="fn">handleClickArrow</span> = () => {
+    console.<span class="fn">log</span>(<span class="kw">this</span>)  <span class="cm">// ✔ always the component instance</span>
+  }
+}</pre>
+<div class="hl">💡 This is why React functional components + hooks largely replaced class components — you never have to think about <strong>this</strong> in function components.</div>
+`},
+
+{ id:"error-handling-js", icon:"🛡️", title:"Error Handling", diff:"basic", body:`
+<pre><span class="cm">// try/catch — synchronous and async</span>
+<span class="kw">try</span> {
+  <span class="kw">const</span> data = JSON.<span class="fn">parse</span>(badJson)  <span class="cm">// throws if invalid JSON</span>
+} <span class="kw">catch</span> (err) {
+  <span class="kw">if</span> (err <span class="kw">instanceof</span> SyntaxError) console.<span class="fn">log</span>(<span class="str">"Bad JSON"</span>)
+  <span class="kw">else throw</span> err  <span class="cm">// re-throw unexpected errors</span>
+} <span class="kw">finally</span> {
+  <span class="cm">// always runs — good for cleanup</span>
+}
+
+<span class="cm">// Async error handling</span>
+<span class="kw">const</span> <span class="fn">fetchUser</span> = <span class="kw">async</span> (id) => {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">\`/api/users/\${id}\`</span>)
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="cls">Error</span>(<span class="str">\`HTTP \${res.status}\`</span>)
+    <span class="kw">return await</span> res.<span class="fn">json</span>()
+  } <span class="kw">catch</span> (err) {
+    console.<span class="fn">error</span>(<span class="str">"fetchUser failed:"</span>, err)
+    <span class="kw">throw</span> err  <span class="cm">// let caller decide what to do</span>
+  }
+}
+
+<span class="cm">// Custom error class</span>
+<span class="kw">class</span> <span class="cls">ValidationError</span> <span class="kw">extends</span> <span class="cls">Error</span> {
+  <span class="fn">constructor</span>(message, field) {
+    <span class="kw">super</span>(message)
+    <span class="kw">this</span>.name = <span class="str">"ValidationError"</span>
+    <span class="kw">this</span>.field = field
+  }
+}</pre>
+<div class="you-tag">Used defensive error handling on all client projects. Pashion Pilates incident: traced error to malformed Airtable slugs — added try/catch with fallback slug sanitization at data layer.</div>
+`}
+
+]}
+
+]; // END SECTIONS
+
+// ── ENGINE ────────────────────────────────────────────────────────────────────
+let done = new Set(JSON.parse(localStorage.getItem('bs_done')||'[]'));
+let current = SECTIONS[0].id;
+
+function save(){ try{localStorage.setItem('bs_done',JSON.stringify([...done]))}catch(e){} }
+
+function pct(){
+  const total = SECTIONS.flatMap(s=>s.topics).length;
+  const n = done.size;
+  document.getElementById('pFill').style.width = (n/total*100)+'%';
+  document.getElementById('pTxt').textContent = n+' / '+total;
+}
+
+function buildTabs(){
+  const nav = document.getElementById('tabnav');
+  SECTIONS.forEach(s=>{
+    const b = document.createElement('button');
+    b.className='tab'+(s.id===current?' active':'');
+    b.dataset.sid=s.id;
+    b.textContent=s.label;
+    b.onclick=()=>switchSec(s.id);
+    nav.appendChild(b);
+  });
+}
+
+function buildSidebar(){
+  const sb = document.getElementById('sidebar');
+  sb.innerHTML='';
+  const s = SECTIONS.find(x=>x.id===current);
+  if(!s)return;
+  const grp=document.createElement('div');grp.className='sb-group';
+  const lbl=document.createElement('div');lbl.className='sb-label';lbl.textContent=s.label;
+  grp.appendChild(lbl);
+  s.topics.forEach(t=>{
+    const item=document.createElement('div');
+    item.className='sb-item'+(done.has(t.id)?' done':'');
+    item.dataset.id=t.id;
+    const isDone=done.has(t.id);
+    const badge = t.badge ? `<span class="sb-badge badge-${t.badge}">${t.badge.toUpperCase()}</span>` : '';
+    item.innerHTML=`<span class="pip"></span>${t.title}${badge}`;
+    item.onclick=()=>{
+      document.getElementById('card-'+t.id)?.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    grp.appendChild(item);
+  });
+  sb.appendChild(grp);
+}
+
+function buildContent(){
+  const content=document.getElementById('content');
+  content.innerHTML='';
+  SECTIONS.forEach(s=>{
+    const sec=document.createElement('div');
+    sec.id='sec-'+s.id;
+    sec.className='sec'+(s.id===current?' visible':'');
+    s.topics.forEach(t=>{
+      const dmap={basic:'d-basic',mid:'d-mid',adv:'d-adv'};
+      const dlbl={basic:'Basic',mid:'Intermediate',adv:'Advanced'};
+      const card=document.createElement('div');
+      card.id='card-'+t.id;
+      card.className='card'+(done.has(t.id)?' done':'');
+      card.innerHTML=`
+        <div class="card-head" onclick="toggleCard('${t.id}')">
+          <div class="card-title"><span class="card-icon">${t.icon}</span>${t.title}</div>
+          <div class="card-meta">
+            <span class="diff ${dmap[t.diff]||'d-basic'}">${dlbl[t.diff]||'Basic'}</span>
+            <span class="chev">▼</span>
+          </div>
+        </div>
+        <div class="card-body">${t.body}
+          <button class="done-btn" onclick="markDone('${t.id}',event)">${done.has(t.id)?'✔ Studied':'○ Mark studied'}</button>
+        </div>`;
+      sec.appendChild(card);
+    });
+    content.appendChild(sec);
+  });
+}
+
+function toggleCard(id){
+  const c=document.getElementById('card-'+id);
+  c.classList.toggle('open');
+  if(c.classList.contains('open'))c.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function markDone(id,e){
+  e.stopPropagation();
+  done.has(id)?done.delete(id):done.add(id);
+  save();
+  const c=document.getElementById('card-'+id);
+  c.classList.toggle('done',done.has(id));
+  c.querySelector('.done-btn').textContent=done.has(id)?'✔ Studied':'○ Mark studied';
+  const si=document.querySelector(`.sb-item[data-id="${id}"]`);
+  if(si)si.classList.toggle('done',done.has(id));
+  pct();
+}
+
+function switchSec(id){
+  current=id;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.sid===id));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.toggle('visible',s.id==='sec-'+id));
+  buildSidebar();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+buildTabs(); buildSidebar(); buildContent(); pct();
+</script>
+</body>
+</html>
